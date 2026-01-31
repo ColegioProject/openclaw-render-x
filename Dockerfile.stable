@@ -1,0 +1,10 @@
+FROM ghcr.io/clawdbot/clawdbot:2026.1.26
+
+# Render provides PORT dynamically. Make sure we bind to it.
+ENV PORT=8080
+
+# Optional: prevent Node OOM during onboarding
+ENV NODE_OPTIONS=--max-old-space-size=1024
+
+# Start the gateway on 0.0.0.0 so Render can reach it
+CMD ["node", "dist/index.js", "gateway", "--port", "${PORT}", "--host", "0.0.0.0"]
